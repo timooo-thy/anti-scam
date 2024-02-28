@@ -1,7 +1,7 @@
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="py-10 text-center bg-background md:text-lg text-base">
+    <footer className="bg-background py-10 text-center text-sm md:text-lg">
       <p>© {year} SG Anti-Scam AI. All rights reserved.</p>
     </footer>
   );
