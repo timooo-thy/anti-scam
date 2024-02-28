@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import NavBar from "@/components/NavBar";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 const roboto_condensed = Roboto_Condensed({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           <NavBar />
           {children}
           <Toaster richColors />
+          <Analytics />
           <Footer />
         </ThemeProvider>
       </body>
