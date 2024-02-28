@@ -11,7 +11,6 @@ import {
   NavbarMenuItem,
 } from "@nextui-org/react";
 import { ModeToggle } from "@/components/ModeToggle";
-
 import { Separator } from "@/components/ui/separator";
 import { Link1Icon } from "@radix-ui/react-icons";
 
