@@ -25,8 +25,8 @@ export default function NavBar() {
 
   const menuItems: MenuItem[] = [
     { name: "Home", link: "/" },
-    { name: "Privacy Policy", link: "/privacy-policy" },
-    { name: "Contact", link: "/contact" },
+    { name: "Upload", link: "/upload" },
+    { name: "Dashboard", link: "/dashboard" },
   ];
 
   return (
