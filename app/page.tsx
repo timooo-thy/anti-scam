@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 const Home: FC = () => {
   return (
     <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background">
-      <div className="my-[75px] flex w-10/12 flex-col gap-10 md:my-[120px] md:w-8/12 xl:w-6/12">
+      <div className="my-[75px] flex w-9/12 flex-col gap-10 md:my-[120px] md:w-8/12 xl:w-6/12">
         <h1 className="text-2xl font-bold md:text-center md:text-4xl">
           SG Anti-Scam AI: Empowering Your Online Safety
         </h1>
