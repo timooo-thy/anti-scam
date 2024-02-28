@@ -108,7 +108,7 @@ const Upload: FC = () => {
           accept="image/*"
           multiple
           onChange={handleImageChange}
-          className="w-[200px] bg-background  md:w-1/3"
+          className="w-min bg-background file:text-base md:w-1/3"
         />
 
         <div className="flex gap-5">
