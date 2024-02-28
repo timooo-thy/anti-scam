@@ -72,7 +72,7 @@ const Upload: FC = () => {
   return (
     <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background">
       <div className="flex flex-col gap-10 w-8/12 my-[120px]">
-        <h1>Upload your conversations</h1>
+        <h1 className="text-4xl">Upload your conversations</h1>
         <input
           ref={fileInputRef}
           type="file"
