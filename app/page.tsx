@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 const Home: FC = () => {
   return (
-    <main className="flex min-h-[calc(100dvh-64px)] flex-col items-center bg-background">
+    <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background">
       <div className="flex flex-col gap-10 w-8/12 my-[120px]">
         <h1 className="text-4xl text-center font-bold">
           SG Anti-Scam AI: Empowering Your Online Safety
@@ -22,7 +22,7 @@ const Home: FC = () => {
         </h2>
         <div className="text-lg flex flex-col ">
           <div className="flex items-center gap-10">
-            <Image src="/1.svg" width={500} height={500} alt="1" />
+            <Image src="/1.svg" width={500} height={500} alt="1" priority />
             <div className="flex flex-col gap-5">
               <div className="bg-cyan-600 text-white font-semibold flex justify-center items-center w-12 h-12 rounded-full">
                 1
@@ -67,8 +67,8 @@ const Home: FC = () => {
           <Image
             src="/secondLine.svg"
             width={500}
-            height={500}
             alt="secondLine"
+            height={500}
             className="self-center"
           />
         </div>

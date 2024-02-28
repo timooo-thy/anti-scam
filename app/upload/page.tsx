@@ -70,8 +70,9 @@ const Upload: FC = () => {
     }
   };
   return (
-    <main className="flex min-h-[calc(100dvh-64px)] flex-col items-center bg-background">
+    <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background">
       <div className="flex flex-col gap-10 w-8/12 my-[120px]">
+        <h1>Upload your conversations</h1>
         <input
           ref={fileInputRef}
           type="file"
@@ -79,7 +80,9 @@ const Upload: FC = () => {
           multiple
           onChange={handleImageChange}
         />
-        <Button onClick={handleImageUpload}>Upload Images</Button>
+        <Button onClick={handleImageUpload} className="text-white w-1/3">
+          Upload Images
+        </Button>
       </div>
     </main>
   );
