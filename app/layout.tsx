@@ -6,13 +6,12 @@ import NavBar from "@/components/NavBar";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
-
 const roboto_condensed = Roboto_Condensed({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Home | Antiscam SG",
+  title: "Home | SG Anti-Scam AI",
   description:
-    "A platform to report and track scam incidents in Singapore using Generative AI.",
+    "A platform to report and track scam incidents in Singapore using Generative AI and RPA.",
 };
 
 export default function RootLayout({
