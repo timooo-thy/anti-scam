@@ -13,9 +13,17 @@ import {
 import { ModeToggle } from "@/components/ModeToggle";
 import { Separator } from "@/components/ui/separator";
 import { Link1Icon } from "@radix-ui/react-icons";
+import {
+  SignInButton,
+  SignOutButton,
+  UserButton,
+  useAuth,
+} from "@clerk/nextjs";
+import { Button } from "./ui/button";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isLoaded, userId } = useAuth();
 
   type MenuItem = {
     name: string;
@@ -25,7 +33,7 @@ export default function NavBar() {
   const menuItems: MenuItem[] = [
     { name: "Home", link: "/" },
     { name: "Upload", link: "/upload" },
-    { name: "Dashboard", link: "/dashboard" },
+    { name: "Dashboard", link: "/admin/dashboard" },
   ];
 
   return (
@@ -53,14 +61,25 @@ export default function NavBar() {
             Upload
           </Link>
         </NavbarItem>
-        <Separator orientation="vertical" className="h-5" />
-        <NavbarItem>
-          <Link color="foreground" href="/dashboard">
-            Dashboard
-          </Link>
-        </NavbarItem>
+        {userId && (
+          <>
+            <Separator orientation="vertical" className="h-5" />
+            <NavbarItem>
+              <Link color="foreground" href="/admin/dashboard">
+                Dashboard
+              </Link>
+            </NavbarItem>
+          </>
+        )}
       </NavbarContent>
       <NavbarContent justify="end">
+        {!userId ? (
+          <SignInButton>
+            <Button>Sign in</Button>
+          </SignInButton>
+        ) : (
+          <UserButton afterSignOutUrl="/" />
+        )}
         <ModeToggle />
       </NavbarContent>
       <NavbarMenu>
