@@ -18,7 +18,6 @@ const Dashboard: FC<DashboardProps> = ({}) => {
         const filesWithContentPromises = files.map(async (file) => {
           const contentResponse = await fetch(file.url);
           const content: JsonContent = await contentResponse.json();
-          console.log(content);
           return { ...file, content };
         });
 

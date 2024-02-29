@@ -93,7 +93,9 @@ export const columns: ColumnDef<FullJsonFile>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) => (
+      <div className="w-[170px] lowercase">{row.getValue("email")}</div>
+    ),
   },
   {
     accessorFn: (row) => row.content?.datetime,
