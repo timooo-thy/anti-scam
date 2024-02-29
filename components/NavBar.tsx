@@ -9,16 +9,12 @@ import {
   NavbarMenu,
   NavbarMenuToggle,
   NavbarMenuItem,
+  menu,
 } from "@nextui-org/react";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Separator } from "@/components/ui/separator";
 import { Link1Icon } from "@radix-ui/react-icons";
-import {
-  SignInButton,
-  SignOutButton,
-  UserButton,
-  useAuth,
-} from "@clerk/nextjs";
+import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 
 export default function NavBar() {
@@ -30,11 +26,14 @@ export default function NavBar() {
     link: string;
   };
 
-  const menuItems: MenuItem[] = [
+  let menuItems: MenuItem[] = [
     { name: "Home", link: "/" },
     { name: "Upload", link: "/upload" },
-    { name: "Dashboard", link: "/admin/dashboard" },
   ];
+
+  if (userId) {
+    menuItems = [...menuItems, { name: "Dashboard", link: "/admin/dashboard" }];
+  }
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -74,7 +73,7 @@ export default function NavBar() {
       </NavbarContent>
       <NavbarContent justify="end">
         {!userId ? (
-          <SignInButton>
+          <SignInButton redirectUrl="/">
             <Button>Sign in</Button>
           </SignInButton>
         ) : (

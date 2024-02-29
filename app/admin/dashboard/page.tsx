@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
 interface DashboardProps {}
 import { notFound } from "next/navigation";
@@ -13,9 +12,11 @@ const Dashboard: FC<DashboardProps> = ({}) => {
   }
 
   return (
-    <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center justify-center bg-background">
-      <h1>This is the admin dashboard</h1>
-      <p>This page is restricted to users with the &apos;admin&apos; role.</p>
+    <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background ">
+      <div className="my-[75px] md:my-[120px]">
+        <h1>This is the admin dashboard</h1>
+        <p>This page is restricted to users with the &apos;admin&apos; role.</p>
+      </div>
     </main>
   );
 };
