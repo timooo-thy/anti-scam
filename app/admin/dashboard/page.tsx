@@ -1,9 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, Suspense } from "react";
 import { auth } from "@clerk/nextjs";
-interface DashboardProps {}
 import { notFound } from "next/navigation";
+import Dashboard from "./Dashboard";
+interface DashboardPageProps {}
 
-const Dashboard: FC<DashboardProps> = ({}) => {
+const DashboardPage: FC<DashboardPageProps> = ({}) => {
   const { sessionClaims } = auth();
 
   // If the user does not have the admin role, redirect them to the home page
@@ -12,13 +13,11 @@ const Dashboard: FC<DashboardProps> = ({}) => {
   }
 
   return (
-    <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background ">
-      <div className="my-[75px] md:my-[120px]">
-        <h1>This is the admin dashboard</h1>
-        <p>This page is restricted to users with the &apos;admin&apos; role.</p>
-      </div>
+    <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background">
+      <h1 className="mt-[100px] text-2xl md:text-4xl">Admin dashboard</h1>
+      <Dashboard />
     </main>
   );
 };
 
-export default Dashboard;
+export default DashboardPage;
