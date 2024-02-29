@@ -37,7 +37,7 @@ const Dashboard: FC<DashboardProps> = ({}) => {
   }, []);
 
   return (
-    <div className="my-[75px] flex w-10/12 justify-center md:my-[120px] md:w-8/12 xl:w-6/12">
+    <div className="my-[50px] flex w-10/12 justify-center md:my-[120px] md:w-8/12 xl:w-6/12">
       {jsonFiles.length > 0 ? (
         <DashboardTable files={jsonFiles} />
       ) : (

@@ -14,7 +14,9 @@ const DashboardPage: FC<DashboardPageProps> = ({}) => {
 
   return (
     <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background">
-      <h1 className="mt-[100px] text-2xl md:text-4xl">Admin dashboard</h1>
+      <h1 className="mt-[50px] text-2xl md:mt-[100px] md:text-4xl">
+        Admin dashboard
+      </h1>
       <Dashboard />
     </main>
   );

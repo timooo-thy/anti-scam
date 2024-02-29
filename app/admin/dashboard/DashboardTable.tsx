@@ -98,7 +98,17 @@ export const columns: ColumnDef<FullJsonFile>[] = [
   {
     accessorFn: (row) => row.content?.datetime,
     id: "datetime",
-    header: "Datetime",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          DateTime
+          <CaretSortIcon className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const datetime = row.getValue("datetime") as string;
       return <div>{datetime}</div>;
@@ -107,7 +117,18 @@ export const columns: ColumnDef<FullJsonFile>[] = [
   {
     accessorFn: (row) => row.content?.ai_score,
     id: "ai_score",
-    header: "AI Score",
+
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          AI Score
+          <CaretSortIcon className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const aiScore = row.getValue("ai_score") as string;
       return <div>{aiScore}</div>;
@@ -116,7 +137,17 @@ export const columns: ColumnDef<FullJsonFile>[] = [
   {
     accessorFn: (row) => row.content?.flagged,
     id: "flagged",
-    header: "Flagged",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Flagged
+          <CaretSortIcon className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const flagged = row.getValue("flagged");
       return <div>{flagged ? "Yes" : "No"}</div>;
@@ -124,7 +155,7 @@ export const columns: ColumnDef<FullJsonFile>[] = [
   },
   {
     id: "actions",
-    enableHiding: true,
+    enableHiding: false,
     cell: ({ row }) => {
       const rowData = row.original as FullJsonFile;
 
@@ -210,6 +241,8 @@ export const DashboardTable: React.FC<DashboardTableProps> = ({ files }) => {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [pageIndex, setPageIndex] = React.useState(0);
+  const [pageSize, setPageSize] = React.useState(5);
 
   const table = useReactTable({
     data: files,
@@ -227,8 +260,26 @@ export const DashboardTable: React.FC<DashboardTableProps> = ({ files }) => {
       columnFilters,
       columnVisibility,
       rowSelection,
+      pagination: {
+        pageIndex,
+        pageSize,
+      },
     },
+    manualPagination: false,
+    pageCount: Math.ceil(files.length / pageSize),
   });
+
+  const handleNextPage = () => {
+    if (table.getCanNextPage()) {
+      setPageIndex((current) => current + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (table.getCanPreviousPage()) {
+      setPageIndex((current) => current - 1);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -275,7 +326,7 @@ export const DashboardTable: React.FC<DashboardTableProps> = ({ files }) => {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="text-center">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -296,7 +347,7 @@ export const DashboardTable: React.FC<DashboardTableProps> = ({ files }) => {
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),
@@ -327,7 +378,7 @@ export const DashboardTable: React.FC<DashboardTableProps> = ({ files }) => {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.previousPage()}
+            onClick={() => handlePreviousPage()}
             disabled={!table.getCanPreviousPage()}
           >
             Previous
@@ -335,7 +386,7 @@ export const DashboardTable: React.FC<DashboardTableProps> = ({ files }) => {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.nextPage()}
+            onClick={() => handleNextPage()}
             disabled={!table.getCanNextPage()}
           >
             Next
