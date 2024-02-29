@@ -67,6 +67,7 @@ export const columns: ColumnDef<FullJsonFile>[] = [
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
+        className="ml-[10px]"
       />
     ),
     cell: ({ row }) => (
@@ -74,6 +75,7 @@ export const columns: ColumnDef<FullJsonFile>[] = [
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
+        className="ml-[10px]"
       />
     ),
     enableSorting: false,
@@ -200,7 +202,10 @@ export const columns: ColumnDef<FullJsonFile>[] = [
             <DropdownMenuSeparator />
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="ghost" className="w-full">
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start p-[8px]"
+                >
                   View conversation
                 </Button>
               </DialogTrigger>
