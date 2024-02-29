@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { ClerkProvider } from "@clerk/nextjs";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const roboto_condensed = Roboto_Condensed({ subsets: ["latin"] });
 
@@ -35,6 +36,7 @@ export default function RootLayout({
             {children}
             <Toaster richColors />
             <Analytics />
+            <SpeedInsights />
             <Footer />
           </ThemeProvider>
         </body>
