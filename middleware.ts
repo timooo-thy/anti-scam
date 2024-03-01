@@ -2,7 +2,7 @@ import { authMiddleware } from "@clerk/nextjs";
 
 export default authMiddleware({
   // Routes that can be accessed while signed out
-  publicRoutes: ["/", "/upload"],
+  publicRoutes: ["/", "/upload", "/api/upload"],
 });
 
 export const config = {

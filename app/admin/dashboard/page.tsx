@@ -1,4 +1,4 @@
-import React, { FC, Suspense } from "react";
+import React, { FC } from "react";
 import { auth } from "@clerk/nextjs";
 import { notFound } from "next/navigation";
 import Dashboard from "./Dashboard";
