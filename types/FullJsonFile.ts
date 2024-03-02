@@ -10,6 +10,7 @@ type ConversationEntry = {
 };
 
 export type JsonContent = {
+  fileName: string;
   email: string;
   datetime: string;
   ai_score: number;

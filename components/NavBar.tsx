@@ -74,7 +74,7 @@ export default function NavBar() {
       <NavbarContent justify="end">
         {!userId ? (
           <SignInButton redirectUrl="/">
-            <Button>Sign in</Button>
+            <Button className="text-white">Sign in</Button>
           </SignInButton>
         ) : (
           <UserButton afterSignOutUrl="/" />

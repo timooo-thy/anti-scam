@@ -34,7 +34,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -51,12 +50,13 @@ import {
 
 import { FullJsonFile } from "@/types/FullJsonFile";
 import { DialogOverlay } from "@radix-ui/react-dialog";
+import { toggleFlag } from "@/actions";
 
 interface DashboardTableProps {
   files: FullJsonFile[];
 }
 
-export const columns: ColumnDef<FullJsonFile>[] = [
+const columns: ColumnDef<FullJsonFile>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -162,7 +162,6 @@ export const columns: ColumnDef<FullJsonFile>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const rowData = row.original as FullJsonFile;
-
       const downloadConversationAsJson = () => {
         const conversationData = rowData.content?.conversation;
         const jsonData = JSON.stringify(conversationData, null, 2);
@@ -199,6 +198,20 @@ export const columns: ColumnDef<FullJsonFile>[] = [
             <DropdownMenuItem onClick={downloadConversationAsJson}>
               Download conversation as JSON
             </DropdownMenuItem>
+
+            <DropdownMenuItem
+              onClick={() => {
+                if (rowData.content?.fileName) {
+                  toggleFlag(rowData.content.fileName);
+                  window.location.reload();
+                }
+              }}
+            >
+              {rowData.content?.flagged
+                ? "Unflag conversation"
+                : "Flag conversation"}
+            </DropdownMenuItem>
+
             <DropdownMenuSeparator />
             <Dialog>
               <DialogTrigger asChild>

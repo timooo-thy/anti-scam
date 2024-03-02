@@ -20,7 +20,7 @@ const DashboardPage: FC = ({}) => {
   return (
     <main className="flex h-[calc(100dvh-168px)] flex-col items-center bg-background">
       <h1 className="mt-[50px] text-2xl md:mt-[100px] md:text-4xl">
-        Admin dashboard
+        Admin Dashboard
       </h1>
       <Dashboard />
     </main>

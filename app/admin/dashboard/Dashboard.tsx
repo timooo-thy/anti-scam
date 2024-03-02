@@ -40,7 +40,10 @@ const Dashboard: FC<DashboardProps> = ({}) => {
       {jsonFiles.length > 0 ? (
         <DashboardTable files={jsonFiles} />
       ) : (
-        <Spinner />
+        <div className="mt-16 flex flex-col items-center justify-center gap-5 text-base md:text-lg">
+          Updating files...
+          <Spinner />
+        </div>
       )}
     </div>
   );
