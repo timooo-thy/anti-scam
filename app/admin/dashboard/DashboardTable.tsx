@@ -217,7 +217,7 @@ export const columns: ColumnDef<FullJsonFile>[] = [
                     View conversation between user and potential scammer.
                   </DialogDescription>
                 </DialogHeader>
-                <DialogOverlay className="h-[200px] overflow-auto">
+                <DialogOverlay className="h-[200px] overflow-auto border-b-1">
                   {rowData.content?.conversation.map((entry, index) => (
                     <div key={index}>
                       <div>
