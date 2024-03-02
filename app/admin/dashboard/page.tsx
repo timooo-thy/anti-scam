@@ -3,10 +3,11 @@ import { auth } from "@clerk/nextjs";
 import { notFound } from "next/navigation";
 import Dashboard from "./Dashboard";
 import { Metadata } from "next";
+import { FilesProvider } from "@/filesContext";
 
 export const metadata: Metadata = {
-  title: "Upload | SG Anti-Scam AI",
-  description: "Upload your conversations with just a click of a button.",
+  title: "Admin Dashboard | SG Anti-Scam AI",
+  description: "Manage all submissions within a dashboard.",
 };
 
 const DashboardPage: FC = ({}) => {
@@ -22,7 +23,9 @@ const DashboardPage: FC = ({}) => {
       <h1 className="mt-[50px] text-2xl md:mt-[100px] md:text-4xl">
         Admin Dashboard
       </h1>
-      <Dashboard />
+      <FilesProvider>
+        <Dashboard />
+      </FilesProvider>
     </main>
   );
 };

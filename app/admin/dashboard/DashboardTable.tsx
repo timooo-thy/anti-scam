@@ -51,211 +51,224 @@ import {
 import { FullJsonFile } from "@/types/FullJsonFile";
 import { DialogOverlay } from "@radix-ui/react-dialog";
 import { toggleFlag } from "@/actions";
+import { useFiles } from "@/filesContext";
 
-interface DashboardTableProps {
-  files: FullJsonFile[];
-}
+interface DashboardTableProps {}
 
-const columns: ColumnDef<FullJsonFile>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="ml-[10px]"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="ml-[10px]"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorFn: (row) => row.content?.email,
-    id: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <CaretSortIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => (
-      <div className="w-[170px] lowercase">{row.getValue("email")}</div>
-    ),
-  },
-  {
-    accessorFn: (row) => row.content?.datetime,
-    id: "datetime",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          DateTime
-          <CaretSortIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const datetime = row.getValue("datetime") as string;
-      return <div>{datetime}</div>;
-    },
-  },
-  {
-    accessorFn: (row) => row.content?.ai_score,
-    id: "ai_score",
+export const DashboardTable: React.FC<DashboardTableProps> = () => {
+  const { files, toggleFileFlag } = useFiles();
 
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          AI Score
-          <CaretSortIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const aiScore = row.getValue("ai_score") as string;
-      return <div>{aiScore}</div>;
-    },
-  },
-  {
-    accessorFn: (row) => row.content?.flagged,
-    id: "flagged",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Flagged
-          <CaretSortIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const flagged = row.getValue("flagged");
-      return <div>{flagged ? "Yes" : "No"}</div>;
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const rowData = row.original as FullJsonFile;
-      const downloadConversationAsJson = () => {
-        const conversationData = rowData.content?.conversation;
-        const jsonData = JSON.stringify(conversationData, null, 2);
-        const blob = new Blob([jsonData], { type: "application/json" });
-        const href = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = href;
-        link.download = `conversation-${rowData.content?.email}-${rowData.content?.datetime}.json`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(href);
-      };
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
+  const columns = React.useMemo<ColumnDef<FullJsonFile>[]>(
+    () => [
+      {
+        id: "select",
+        header: ({ table }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && "indeterminate")
+            }
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
+            aria-label="Select all"
+            className="ml-[10px]"
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+            className="ml-[10px]"
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+      {
+        accessorFn: (row) => row.content?.email,
+        id: "email",
+        header: ({ column }) => {
+          return (
+            <Button
+              variant="ghost"
               onClick={() =>
-                navigator.clipboard.writeText(
-                  JSON.stringify(rowData.content?.conversation),
-                )
+                column.toggleSorting(column.getIsSorted() === "asc")
               }
             >
-              Copy conversation
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={downloadConversationAsJson}>
-              Download conversation as JSON
-            </DropdownMenuItem>
-
-            <DropdownMenuItem
-              onClick={() => {
-                if (rowData.content?.fileName) {
-                  toggleFlag(rowData.content.fileName);
-                  window.location.reload();
-                }
-              }}
+              Email
+              <CaretSortIcon className="ml-2 h-4 w-4" />
+            </Button>
+          );
+        },
+        cell: ({ row }) => (
+          <div className="w-[170px] lowercase">{row.getValue("email")}</div>
+        ),
+      },
+      {
+        accessorFn: (row) => row.content?.datetime,
+        id: "datetime",
+        header: ({ column }) => {
+          return (
+            <Button
+              variant="ghost"
+              onClick={() =>
+                column.toggleSorting(column.getIsSorted() === "asc")
+              }
             >
-              {rowData.content?.flagged
-                ? "Unflag conversation"
-                : "Flag conversation"}
-            </DropdownMenuItem>
+              DateTime
+              <CaretSortIcon className="ml-2 h-4 w-4" />
+            </Button>
+          );
+        },
+        cell: ({ row }) => {
+          const datetime = row.getValue("datetime") as string;
+          return <div>{datetime}</div>;
+        },
+      },
+      {
+        accessorFn: (row) => row.content?.ai_score,
+        id: "ai_score",
 
-            <DropdownMenuSeparator />
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start p-[8px]"
-                >
-                  View conversation
+        header: ({ column }) => {
+          return (
+            <Button
+              variant="ghost"
+              onClick={() =>
+                column.toggleSorting(column.getIsSorted() === "asc")
+              }
+            >
+              AI Score
+              <CaretSortIcon className="ml-2 h-4 w-4" />
+            </Button>
+          );
+        },
+        cell: ({ row }) => {
+          const aiScore = row.getValue("ai_score") as string;
+          return <div>{aiScore}</div>;
+        },
+      },
+      {
+        accessorFn: (row) => row.content?.flagged,
+        id: "flagged",
+        header: ({ column }) => {
+          return (
+            <Button
+              variant="ghost"
+              onClick={() =>
+                column.toggleSorting(column.getIsSorted() === "asc")
+              }
+            >
+              Flagged
+              <CaretSortIcon className="ml-2 h-4 w-4" />
+            </Button>
+          );
+        },
+        cell: ({ row }) => {
+          const flagged = row.getValue("flagged");
+          return <div>{flagged ? "Yes" : "No"}</div>;
+        },
+      },
+      {
+        id: "actions",
+        enableHiding: false,
+        cell: ({ row }) => {
+          const rowData = row.original as FullJsonFile;
+          const downloadConversationAsJson = () => {
+            const conversationData = rowData.content?.conversation;
+            const jsonData = JSON.stringify(conversationData, null, 2);
+            const blob = new Blob([jsonData], { type: "application/json" });
+            const href = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = href;
+            link.download = `conversation-${rowData.content?.email}-${rowData.content?.datetime}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(href);
+          };
+
+          return (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <DotsHorizontalIcon className="h-4 w-4" />
                 </Button>
-              </DialogTrigger>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuItem
+                  onClick={() =>
+                    navigator.clipboard.writeText(
+                      JSON.stringify(rowData.content?.conversation),
+                    )
+                  }
+                >
+                  Copy conversation
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={downloadConversationAsJson}>
+                  Download conversation as JSON
+                </DropdownMenuItem>
 
-              <DialogContent className="w-11/12 md:max-w-[450px]">
-                <DialogHeader>
-                  <DialogTitle>Conversation</DialogTitle>
-                  <DialogDescription>
-                    View conversation between user and potential scammer.
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogOverlay className="h-[200px] overflow-auto border-b-1">
-                  {rowData.content?.conversation.map((entry, index) => (
-                    <div key={index}>
-                      <div>
-                        <span>{entry.from}</span>
-                        <span>
-                          {entry.timestamp
-                            ? new Date(entry.timestamp).toLocaleString()
-                            : ""}
-                        </span>
-                      </div>
-                      <div>{entry.message}</div>
-                      <br />
-                    </div>
-                  ))}
-                </DialogOverlay>
-              </DialogContent>
-            </Dialog>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
+                <DropdownMenuItem
+                  onClick={() => {
+                    if (rowData.content) {
+                      toggleFlag(rowData.content.fileName);
+                      toggleFileFlag(rowData.content.fileName);
+                    }
+                  }}
+                >
+                  {rowData.content?.flagged
+                    ? "Unflag conversation"
+                    : "Flag conversation"}
+                </DropdownMenuItem>
 
-export const DashboardTable: React.FC<DashboardTableProps> = ({ files }) => {
+                <DropdownMenuSeparator />
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start p-[8px]"
+                    >
+                      View conversation
+                    </Button>
+                  </DialogTrigger>
+
+                  <DialogContent className="w-11/12 md:max-w-[450px]">
+                    <DialogHeader>
+                      <DialogTitle>Conversation</DialogTitle>
+                      <DialogDescription>
+                        View conversation between user and potential scammer.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <DialogOverlay className="h-[200px] overflow-auto border-b-1">
+                      {rowData.content?.conversation.map((entry, index) => (
+                        <div key={index}>
+                          <div>
+                            <span>{entry.from}</span>
+                            <span>
+                              {entry.timestamp
+                                ? new Date(entry.timestamp).toLocaleString()
+                                : ""}
+                            </span>
+                          </div>
+                          <div>{entry.message}</div>
+                          <br />
+                        </div>
+                      ))}
+                    </DialogOverlay>
+                  </DialogContent>
+                </Dialog>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          );
+        },
+      },
+    ],
+    [toggleFileFlag],
+  );
   const savedPageIndex = parseInt(localStorage.getItem("pageIndex") || "0", 10);
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
