@@ -3,10 +3,12 @@ import React, { FC, useState, useEffect } from "react";
 import { FullJsonFile, JsonFile, JsonContent } from "@/types/FullJsonFile";
 import { Spinner } from "@nextui-org/react";
 import { DashboardTable } from "./DashboardTable";
+import { unstable_noStore as noStore } from "next/cache";
 
 interface DashboardProps {}
 
 const Dashboard: FC<DashboardProps> = ({}) => {
+  noStore();
   const [jsonFiles, setJsonFiles] = useState<FullJsonFile[]>([]);
 
   const fetchJsonFiles = async () => {

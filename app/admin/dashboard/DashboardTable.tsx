@@ -51,7 +51,6 @@ import {
 import { FullJsonFile } from "@/types/FullJsonFile";
 import { DialogOverlay } from "@radix-ui/react-dialog";
 import { toggleFlag } from "@/actions";
-import { unstable_noStore as noStore } from "next/cache";
 
 interface DashboardTableProps {
   files: FullJsonFile[];
@@ -257,7 +256,6 @@ const columns: ColumnDef<FullJsonFile>[] = [
 ];
 
 export const DashboardTable: React.FC<DashboardTableProps> = ({ files }) => {
-  noStore();
   const savedPageIndex = parseInt(localStorage.getItem("pageIndex") || "0", 10);
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
