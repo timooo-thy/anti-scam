@@ -243,7 +243,7 @@ export const DashboardTable: React.FC<DashboardTableProps> = () => {
                         View conversation between user and potential scammer.
                       </DialogDescription>
                     </DialogHeader>
-                    <DialogOverlay className="h-[200px] overflow-auto border-b-1">
+                    <DialogOverlay className="h-[250px] overflow-auto">
                       {rowData.content?.conversation.map((entry, index) => (
                         <div key={index}>
                           <div>
