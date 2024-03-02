@@ -26,7 +26,6 @@ export const FilesProvider: React.FC<FilesProviderProps> = ({ children }) => {
   const toggleFileFlag = (fileName: string) => {
     const updatedFiles = files.map((file) => {
       if (file.content?.fileName === fileName) {
-        console.log("Flag toggled for:", fileName);
         return {
           ...file,
           content: {

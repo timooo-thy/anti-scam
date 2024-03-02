@@ -230,7 +230,7 @@ export const DashboardTable: React.FC<DashboardTableProps> = () => {
                   <DialogTrigger asChild>
                     <Button
                       variant="ghost"
-                      className="w-full justify-start p-[8px]"
+                      className="w-full justify-start p-[8px] font-normal"
                     >
                       View conversation
                     </Button>
