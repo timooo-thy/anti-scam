@@ -6,7 +6,7 @@ export type JsonFile = {
 type ConversationEntry = {
   from: string;
   message: string;
-  timestamp: string;
+  timestamp?: string;
 };
 
 export type JsonContent = {

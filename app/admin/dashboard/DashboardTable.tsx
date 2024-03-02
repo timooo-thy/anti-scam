@@ -223,7 +223,9 @@ export const columns: ColumnDef<FullJsonFile>[] = [
                       <div>
                         <span>{entry.from}</span>
                         <span>
-                          {new Date(entry.timestamp).toLocaleString()}
+                          {entry.timestamp
+                            ? new Date(entry.timestamp).toLocaleString()
+                            : ""}
                         </span>
                       </div>
                       <div>{entry.message}</div>
