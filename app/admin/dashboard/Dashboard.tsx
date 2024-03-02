@@ -37,12 +37,11 @@ const Dashboard: FC<DashboardProps> = ({}) => {
   }, [fetchJsonFiles]);
 
   return (
-    <div className="my-[50px] flex w-10/12 justify-center md:my-[120px] md:w-8/12 xl:w-6/12">
+    <div className="my-[50px] flex h-full w-10/12 justify-center md:my-[120px] md:w-8/12 xl:w-6/12">
       {files.length > 0 ? (
         <DashboardTable />
       ) : (
-        <div className="mt-16 flex flex-col items-center justify-center gap-5 text-base md:text-lg">
-          Updating files...
+        <div className="flex items-center justify-center">
           <Spinner />
         </div>
       )}

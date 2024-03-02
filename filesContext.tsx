@@ -24,9 +24,7 @@ export const FilesProvider: React.FC<FilesProviderProps> = ({ children }) => {
   const [files, setFiles] = useState<FullJsonFile[]>([]);
 
   const toggleFileFlag = (fileName: string) => {
-    console.log("Toggling flag for:", fileName);
     const updatedFiles = files.map((file) => {
-      console.log("Toggling flag for:", file);
       if (file.content?.fileName === fileName) {
         console.log("Flag toggled for:", fileName);
         return {
