@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Upload | SG Anti-Scam AI",
   description: "Upload your conversations with just a click of a button.",
 };
+
 const UploadPage: FC = () => {
   return (
     <div>

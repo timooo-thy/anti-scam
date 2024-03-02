@@ -52,9 +52,10 @@ const Upload: FC = () => {
               });
 
               if (!response.ok) {
-                toast.error("Network response was not successful.");
+                reject("Network response was not successful.");
+              } else {
+                resolve();
               }
-              resolve();
             } catch (error) {
               toast.error("Error uploading image(s).");
               reject(error);
@@ -81,6 +82,7 @@ const Upload: FC = () => {
       setLoading(false);
     }
   };
+
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const filesArray = Array.from(event.target.files);

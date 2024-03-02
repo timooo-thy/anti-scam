@@ -2,9 +2,14 @@ import React, { FC } from "react";
 import { auth } from "@clerk/nextjs";
 import { notFound } from "next/navigation";
 import Dashboard from "./Dashboard";
-interface DashboardPageProps {}
+import { Metadata } from "next";
 
-const DashboardPage: FC<DashboardPageProps> = ({}) => {
+export const metadata: Metadata = {
+  title: "Upload | SG Anti-Scam AI",
+  description: "Upload your conversations with just a click of a button.",
+};
+
+const DashboardPage: FC = ({}) => {
   const { sessionClaims } = auth();
 
   // If the user does not have the admin role, redirect them to the home page
