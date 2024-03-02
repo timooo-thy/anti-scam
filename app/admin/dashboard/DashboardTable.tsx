@@ -258,6 +258,8 @@ const columns: ColumnDef<FullJsonFile>[] = [
 
 export const DashboardTable: React.FC<DashboardTableProps> = ({ files }) => {
   noStore();
+  const savedPageIndex = parseInt(localStorage.getItem("pageIndex") || "0", 10);
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -265,8 +267,12 @@ export const DashboardTable: React.FC<DashboardTableProps> = ({ files }) => {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-  const [pageIndex, setPageIndex] = React.useState(0);
+  const [pageIndex, setPageIndex] = React.useState(savedPageIndex);
   const [pageSize, setPageSize] = React.useState(5);
+
+  React.useEffect(() => {
+    localStorage.setItem("pageIndex", pageIndex.toString());
+  }, [pageIndex]);
 
   const table = useReactTable({
     data: files,
