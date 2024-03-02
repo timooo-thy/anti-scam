@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Dashboard from "./Dashboard";
 import { Metadata } from "next";
 import { FilesProvider } from "@/filesContext";
+import { unstable_noStore } from "next/cache";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard | SG Anti-Scam AI",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 const DashboardPage: FC = ({}) => {
+  unstable_noStore();
   const { sessionClaims } = auth();
 
   // If the user does not have the admin role, redirect them to the home page
