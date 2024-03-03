@@ -12,7 +12,7 @@ const Dashboard: FC<DashboardProps> = ({}) => {
 
   const fetchJsonFiles = useCallback(async () => {
     try {
-      const response = await fetch("/api/admin-data");
+      const response = await fetch("/api/admin-data", { cache: 'no-store'});
       const files: JsonFile[] = await response.json();
 
       if (response.ok) {
