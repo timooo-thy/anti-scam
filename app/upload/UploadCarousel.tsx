@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/carousel";
 import { SelectedImageType } from "@/types/SelectedImageType";
 import Image from "next/image";
-import { image } from "@nextui-org/react";
 
 interface UploadCarouselProps {
   images: SelectedImageType;

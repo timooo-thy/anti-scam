@@ -103,7 +103,11 @@ export const DashboardTable: React.FC<DashboardTableProps> = () => {
           );
         },
         cell: ({ row }) => (
-          <div className="w-[170px] lowercase">{row.getValue("email")}</div>
+          <div className="flex justify-center">
+            <div className="w-[170px] self-center lowercase">
+              {row.getValue("email")}
+            </div>
+          </div>
         ),
       },
       {
