@@ -72,7 +72,9 @@ const Upload: FC = () => {
 
     try {
       await Promise.all(uploadPromises);
-      toast.success("Image(s) uploaded successfully.");
+      toast.success("Image(s) uploaded successfully", {
+        description: "Check your email for the results.",
+      });
       setSelectedImages([]);
       setLoading(false);
       if (fileInputRef.current) {
