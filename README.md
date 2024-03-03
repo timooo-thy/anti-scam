@@ -30,6 +30,7 @@ In the digital age, scams have become increasingly sophisticated, making it diff
 
 - **Frontend:** Next.js, Tailwind CSS, Shadcn UI for a modern, responsive user interface.
 - **Backend:** Next.js API and Server Actions.
+- **Authenication** Clerk for authentication and user role management.
 - **AI and Machine Learning:** OpenAI GPT Vision API, GPT-4, Embeddings with Retrieval Augmented Generation for similarity search and scam detection.
 - **Database:** Pinecone for efficient similarity search in conversational data and Azure blob storage for storing incoming submissions from users.
 - **Hosting:** Deployed on Vercel for reliable, global access.
