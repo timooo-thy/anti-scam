@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { SelectedImageType } from "@/types/SelectedImageType";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@nextui-org/react";
+import { UploadCarousel } from "./UploadCarousel";
 
 const Upload: FC = () => {
   const [selectedImages, setSelectedImages] = useState<SelectedImageType>([]);
@@ -89,6 +90,7 @@ const Upload: FC = () => {
       setSelectedImages(filesArray);
     }
   };
+
   return (
     <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background">
       <div className="my-[75px] flex w-9/12 flex-col gap-10 md:my-[120px] md:w-8/12 xl:w-6/12">
@@ -104,14 +106,20 @@ const Upload: FC = () => {
             className="md:w-1/3 "
           />
         </div>
+
         <Input
           ref={fileInputRef}
           type="file"
           accept="image/*"
           multiple
           onChange={handleImageChange}
-          className="w-min bg-background file:text-base md:w-1/3"
+          className="w-full bg-background file:text-base md:w-1/3"
         />
+        <div className="flex w-full justify-center md:w-1/3">
+          {selectedImages.length > 0 && (
+            <UploadCarousel images={selectedImages} />
+          )}
+        </div>
 
         <div className="flex gap-5">
           <Button
