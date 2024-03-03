@@ -23,13 +23,14 @@ In the digital age, scams have become increasingly sophisticated, making it diff
 - **GPT-4 with RAG:** We leverage GPT-4 with Retrieval-Augmented Generation (RAG) for analyzing conversation patterns and comparing them with known scam scenarios.
 - **AI Scoring:** An AI-generated scam score is calculated based on the analysis.
 - **Email Notification:** Users receive an email with the results of the analysis.
+- **Vectorise JSON File:** Conversation with AI score is vectorised with OpenAI's embedding and stored in Pinecone.
 - **Admin Dashboard:** An administrative dashboard allows for human review of submissions and scores, ensuring a human-in-the-loop approach for accuracy.
 
 ## Tech Stack
 
 - **Frontend:** Next.js, Tailwind CSS, Shadcn UI for a modern, responsive user interface.
 - **Backend:** Next.js API and Server Actions.
-- **AI and Machine Learning:** GPT Vision API, GPT-4 with Retrieval Augmented Generation for text analysis and scam detection.
+- **AI and Machine Learning:** OpenAI GPT Vision API, GPT-4, Embeddings with Retrieval Augmented Generation for similarity search and scam detection.
 - **Database:** Pinecone for efficient similarity search in conversational data and Azure blob storage for storing incoming submissions from users.
 - **Hosting:** Deployed on Vercel for reliable, global access.
 
