@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { auth } from "@clerk/nextjs";
-import { notFound } from "next/navigation";
 import Dashboard from "./Dashboard";
 import { Metadata } from "next";
 import { FilesProvider } from "@/filesContext";
@@ -15,18 +14,17 @@ const DashboardPage: FC = ({}) => {
   unstable_noStore();
   const { sessionClaims } = auth();
 
-  // If the user does not have the admin role, redirect them to the home page
-  if (sessionClaims?.metadata.role !== "admin") {
-    notFound();
-  }
+  const email = sessionClaims?.email as string;
 
   return (
     <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background">
       <h1 className="mt-[50px] text-2xl md:mt-[100px] md:text-4xl">
-        Admin Dashboard
+        {sessionClaims?.metadata.role !== "admin"
+          ? "User Dashboard"
+          : "Admin Dashboard"}
       </h1>
       <FilesProvider>
-        <Dashboard />
+        <Dashboard email={email} role={sessionClaims?.metadata.role} />
       </FilesProvider>
     </main>
   );
