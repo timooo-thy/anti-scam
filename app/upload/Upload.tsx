@@ -94,46 +94,42 @@ const Upload: FC = () => {
   };
 
   return (
-    <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background">
-      <div className="my-[75px] flex w-9/12 flex-col gap-10 md:my-[120px] md:w-8/12 xl:w-6/12">
-        <h1 className="text-2xl md:text-4xl">Upload your conversations</h1>
-        <div className="flex flex-col gap-5">
-          <label htmlFor="email" className="text-base">
-            Email
-          </label>
-          <Input
-            type="email"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-            className="md:w-1/3 "
-          />
-        </div>
-
+    <div className="my-[75px] flex w-9/12 flex-col gap-10 md:my-[120px] md:w-8/12 xl:w-6/12">
+      <h1 className="text-2xl md:text-4xl">Upload your conversations</h1>
+      <div className="flex flex-col gap-5">
+        <label htmlFor="email" className="text-base">
+          Email
+        </label>
         <Input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleImageChange}
-          className="w-full bg-background file:text-base md:w-1/3"
+          type="email"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          className="md:w-1/3 "
         />
-        <div className="flex w-full justify-center md:w-1/3">
-          {selectedImages.length > 0 && (
-            <UploadCarousel images={selectedImages} />
-          )}
-        </div>
-
-        <div className="flex gap-5">
-          <Button
-            onClick={handleImageUpload}
-            className="text-base text-white md:w-1/3"
-          >
-            Upload Images
-          </Button>
-          {loading && <Spinner />}
-        </div>
       </div>
-    </main>
+      <Input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleImageChange}
+        className="w-full bg-background file:text-base md:w-1/3"
+      />
+      <div className="flex w-full justify-center md:w-1/3">
+        {selectedImages.length > 0 && (
+          <UploadCarousel images={selectedImages} />
+        )}
+      </div>
+      <div className="flex gap-5">
+        <Button
+          onClick={handleImageUpload}
+          className="text-base text-white md:w-1/3"
+        >
+          Upload Images
+        </Button>
+        {loading && <Spinner />}
+      </div>
+    </div>
   );
 };
 
