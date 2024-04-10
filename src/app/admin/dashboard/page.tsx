@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { auth } from "@clerk/nextjs";
-import Dashboard from "../../../components/Dashboard";
+import Dashboard from "../../../components/dashboard";
 import Loading from "@/src/app/loading";
 
 export async function generateMetadata() {
@@ -14,6 +14,7 @@ export async function generateMetadata() {
     description: "Manage all your submissions within a dedicated dashboard.",
   };
 }
+
 export default async function DashboardPage() {
   const { sessionClaims } = auth();
 

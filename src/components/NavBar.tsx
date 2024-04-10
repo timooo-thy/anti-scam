@@ -5,16 +5,16 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
   NavbarMenu,
   NavbarMenuToggle,
   NavbarMenuItem,
 } from "@nextui-org/react";
-import { ModeToggle } from "@/src/components/ModeToggle";
+import { ModeToggle } from "@/src/components/mode-toggle";
 import { Separator } from "@/src/components/ui/separator";
 import { Link1Icon } from "@radix-ui/react-icons";
 import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,9 +41,11 @@ export default function NavBar() {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
         />
-        <NavbarBrand className="flex items-center gap-2">
-          <Link1Icon width="22" height="22" />
-          <p className="font-bold text-inherit">SG Anti-Scam AI</p>
+        <NavbarBrand>
+          <Link href="/" className="flex items-center gap-2">
+            <Link1Icon width="22" height="22" />
+            <p className="font-bold text-inherit">SG Anti-Scam AI</p>
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 
@@ -83,12 +85,7 @@ export default function NavBar() {
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={"foreground"}
-              className="w-full"
-              href={item.link}
-              size="lg"
-            >
+            <Link color={"foreground"} className="w-full" href={item.link}>
               {item.name}
             </Link>
           </NavbarMenuItem>

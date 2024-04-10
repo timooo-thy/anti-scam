@@ -1,4 +1,4 @@
-import { DashboardTable } from "./DashboardTable";
+import { DashboardTable } from "./dashboard-table";
 import { FC } from "react";
 import prisma from "@/src/lib/db";
 import { FullScamSubmission } from "@/src/types/FullJsonFile";
