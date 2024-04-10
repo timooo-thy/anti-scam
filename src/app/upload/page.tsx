@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import UploadForm from "../../components/upload-form";
+import UploadForm from "@/components/upload-form";
 
 export const metadata: Metadata = {
   title: "Upload | SG Anti-Scam AI",
