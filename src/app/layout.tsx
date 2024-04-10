@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/src/components/theme-provider";
-import NavBar from "@/src/components/navbar";
-import { Toaster } from "@/src/components/ui/sonner";
-import Footer from "@/src/components/footer";
+import { ThemeProvider } from "@/components/theme-provider";
+import NavBar from "@/components/navbar";
+import { Toaster } from "@/components/ui/sonner";
+import Footer from "@/components/footer";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import NextTopLoader from "nextjs-toploader";
-import { Provider } from "@/src/provider";
+import { Provider } from "@/provider";
 import { Suspense } from "react";
 
 const roboto_condensed = Roboto_Condensed({ subsets: ["latin"] });

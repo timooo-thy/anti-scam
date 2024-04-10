@@ -1,10 +1,10 @@
 "use client";
 import { useState, ChangeEvent, useRef } from "react";
 import { toast } from "sonner";
-import { Input } from "@/src/components/ui/input";
+import { Input } from "@/components/ui/input";
 import { UploadCarousel } from "./upload-carousel";
 import { Label } from "./ui/label";
-import { uploadImages } from "@/src/actions/actions";
+import { uploadImages } from "@/actions/actions";
 import UploadImageButton from "./upload-image-button";
 
 export default function UploadForm() {

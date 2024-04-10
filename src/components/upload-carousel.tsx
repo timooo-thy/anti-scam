@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Card, CardContent } from "@/src/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/src/components/ui/carousel";
+} from "@/components/ui/carousel";
 import Image from "next/image";
 
 interface UploadCarouselProps {
