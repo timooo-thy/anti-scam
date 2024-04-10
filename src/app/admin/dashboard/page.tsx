@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { auth } from "@clerk/nextjs";
-import Dashboard from "../../../components/dashboard";
+import Dashboard from "@/src/components/dashboard";
 import Loading from "@/src/app/loading";
 
 export async function generateMetadata() {
