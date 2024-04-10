@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Upload from "../../components/Upload";
+import UploadForm from "../../components/upload-form";
 
 export const metadata: Metadata = {
   title: "Upload | SG Anti-Scam AI",
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function UploadPage() {
   return (
     <div className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background">
-      <Upload />
+      <UploadForm />
       <div className="mt-5 flex flex-col items-center justify-center">
         <p className=" w-9/12 italic text-gray-500 md:w-8/12 xl:w-6/12 ">
           By uploading your conversations, you help us make SG Anti-Scam AI

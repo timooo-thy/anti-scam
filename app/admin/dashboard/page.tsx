@@ -1,14 +1,19 @@
 import { Suspense } from "react";
 import { auth } from "@clerk/nextjs";
 import Dashboard from "../../../components/Dashboard";
-import { Metadata } from "next";
 import Loading from "@/app/loading";
 
-export const metadata: Metadata = {
-  title: "Admin Dashboard | SG Anti-Scam AI",
-  description: "Manage all submissions within a dashboard.",
-};
-
+export async function generateMetadata() {
+  const { sessionClaims } = auth();
+  return {
+    title: `${
+      sessionClaims?.metadata.role === "admin"
+        ? "Admin Dashboard | SG Anti-Scam AI"
+        : "User Dashboard | SG Anti-Scam AI"
+    }`,
+    description: "Manage all your submissions within a dedicated dashboard.",
+  };
+}
 export default async function DashboardPage() {
   const { sessionClaims } = auth();
 
