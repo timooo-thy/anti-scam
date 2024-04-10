@@ -1,17 +1,16 @@
-import React, { FC } from "react";
+import { FC, Suspense } from "react";
 import { auth } from "@clerk/nextjs";
 import Dashboard from "./Dashboard";
 import { Metadata } from "next";
-import { FilesProvider } from "@/filesContext";
-import { unstable_noStore } from "next/cache";
+import prisma from "@/lib/db";
+import Loading from "@/app/loading";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard | SG Anti-Scam AI",
   description: "Manage all submissions within a dashboard.",
 };
 
-const DashboardPage: FC = ({}) => {
-  unstable_noStore();
+const DashboardPage: FC = async () => {
   const { sessionClaims } = auth();
 
   const email = sessionClaims?.email as string;
@@ -23,9 +22,9 @@ const DashboardPage: FC = ({}) => {
           ? "User Dashboard"
           : "Admin Dashboard"}
       </h1>
-      <FilesProvider>
+      <Suspense fallback={<Loading />}>
         <Dashboard email={email} role={sessionClaims?.metadata.role} />
-      </FilesProvider>
+      </Suspense>
     </main>
   );
 };

@@ -1,6 +1,4 @@
 "use client";
-
-import * as React from "react";
 import {
   CaretSortIcon,
   ChevronDownIcon,
@@ -47,247 +45,233 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-import { FullJsonFile } from "@/types/FullJsonFile";
 import { DialogOverlay } from "@radix-ui/react-dialog";
-import { toggleFlag } from "@/actions";
-import { useFiles } from "@/filesContext";
+import { toggleFlag } from "@/actions/actions";
+import { FullScamSubmission } from "@/types/FullJsonFile";
+import { FC, useEffect, useState, useTransition } from "react";
+import { Spinner } from "@nextui-org/react";
 
-interface DashboardTableProps {}
+interface DashboardTableProps {
+  files: FullScamSubmission[];
+}
 
-export const DashboardTable: React.FC<DashboardTableProps> = () => {
-  const { files, toggleFileFlag } = useFiles();
+export const DashboardTable: FC<DashboardTableProps> = ({ files }) => {
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
+  const [pageSize, setPageSize] = useState(5);
+  const [isPending, startTransition] = useTransition();
+  const [savedPageIndex, setSavedPageIndex] = useState(0);
+  const [pageIndex, setPageIndex] = useState(savedPageIndex);
 
-  const columns = React.useMemo<ColumnDef<FullJsonFile>[]>(
-    () => [
-      {
-        id: "select",
-        header: ({ table }) => (
-          <Checkbox
-            checked={
-              table.getIsAllPageRowsSelected() ||
-              (table.getIsSomePageRowsSelected() && "indeterminate")
-            }
-            onCheckedChange={(value) =>
-              table.toggleAllPageRowsSelected(!!value)
-            }
-            aria-label="Select all"
-            className="ml-[10px]"
-          />
-        ),
-        cell: ({ row }) => (
-          <Checkbox
-            checked={row.getIsSelected()}
-            onCheckedChange={(value) => row.toggleSelected(!!value)}
-            aria-label="Select row"
-            className="ml-[10px]"
-          />
-        ),
-        enableSorting: false,
-        enableHiding: false,
+  useEffect(() => {
+    const pageIndexFromStorage = parseInt(
+      localStorage.getItem("pageIndex") || "0",
+      10,
+    );
+    setSavedPageIndex(pageIndexFromStorage);
+  }, []);
+
+  const columns: ColumnDef<FullScamSubmission>[] = [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+          className="ml-[10px]"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+          className="ml-[10px]"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      accessorFn: (row) => row.email,
+      id: "email",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Email
+            <CaretSortIcon className="ml-2 h-4 w-4" />
+          </Button>
+        );
       },
-      {
-        accessorFn: (row) => row.content?.email,
-        id: "email",
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === "asc")
-              }
-            >
-              Email
-              <CaretSortIcon className="ml-2 h-4 w-4" />
-            </Button>
-          );
-        },
-        cell: ({ row }) => (
-          <div className="flex justify-center">
-            <div className="w-[170px] self-center lowercase">
-              {row.getValue("email")}
-            </div>
+      cell: ({ row }) => (
+        <div className="flex justify-center">
+          <div className="w-[170px] self-center lowercase">
+            {row.getValue("email")}
           </div>
-        ),
+        </div>
+      ),
+    },
+    {
+      accessorFn: (row) => row.createdAt,
+      id: "createdAt",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            CreatedAt
+            <CaretSortIcon className="ml-2 h-4 w-4" />
+          </Button>
+        );
       },
-      {
-        accessorFn: (row) => row.content?.datetime,
-        id: "datetime",
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === "asc")
-              }
-            >
-              DateTime
-              <CaretSortIcon className="ml-2 h-4 w-4" />
-            </Button>
-          );
-        },
-        cell: ({ row }) => {
-          const datetime = row.getValue("datetime") as string;
-          return <div>{datetime}</div>;
-        },
+      cell: ({ row }) => {
+        const createdAt = row.getValue("createdAt") as Date;
+        return <div>{createdAt.toLocaleString()}</div>;
       },
-      {
-        accessorFn: (row) => row.content?.ai_score,
-        id: "ai_score",
+    },
+    {
+      accessorFn: (row) => row.aiScore,
+      id: "aiScore",
 
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === "asc")
-              }
-            >
-              AI Score
-              <CaretSortIcon className="ml-2 h-4 w-4" />
-            </Button>
-          );
-        },
-        cell: ({ row }) => {
-          const aiScore = row.getValue("ai_score") as string;
-          return <div>{aiScore}</div>;
-        },
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            AI Score
+            <CaretSortIcon className="ml-2 h-4 w-4" />
+          </Button>
+        );
       },
-      {
-        accessorFn: (row) => row.content?.flagged,
-        id: "flagged",
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === "asc")
-              }
-            >
-              Flagged
-              <CaretSortIcon className="ml-2 h-4 w-4" />
-            </Button>
-          );
-        },
-        cell: ({ row }) => {
-          const flagged = row.getValue("flagged");
-          return <div>{flagged ? "Yes" : "No"}</div>;
-        },
+      cell: ({ row }) => {
+        const aiScore = row.getValue("aiScore") as string;
+        return <div>{aiScore}</div>;
       },
-      {
-        id: "actions",
-        enableHiding: false,
-        cell: ({ row }) => {
-          const rowData = row.original as FullJsonFile;
-          const downloadConversationAsJson = () => {
-            const conversationData = rowData.content?.conversation;
-            const jsonData = JSON.stringify(conversationData, null, 2);
-            const blob = new Blob([jsonData], { type: "application/json" });
-            const href = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.href = href;
-            link.download = `conversation-${rowData.content?.email}-${rowData.content?.datetime}.json`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(href);
-          };
+    },
+    {
+      accessorFn: (row) => row.flagged,
+      id: "flagged",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Flagged
+            <CaretSortIcon className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => {
+        const flagged = row.getValue("flagged");
+        return <div>{isPending ? <Spinner /> : flagged ? "Yes" : "No"}</div>;
+      },
+    },
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const rowData = row.original;
+        const downloadConversationAsJson = () => {
+          const conversationData = rowData.conversation;
+          const jsonData = JSON.stringify(conversationData, null, 2);
+          const blob = new Blob([jsonData], { type: "application/json" });
+          const href = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = href;
+          link.download = `conversation-${rowData.email}-${rowData.createdAt}.json`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(href);
+        };
 
-          return (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                  <span className="sr-only">Open menu</span>
-                  <DotsHorizontalIcon className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                <DropdownMenuItem
-                  onClick={() =>
-                    navigator.clipboard.writeText(
-                      JSON.stringify(rowData.content?.conversation),
-                    )
-                  }
-                >
-                  Copy conversation
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={downloadConversationAsJson}>
-                  Download conversation as JSON
-                </DropdownMenuItem>
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <DotsHorizontalIcon className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    JSON.stringify(rowData.conversation),
+                  )
+                }
+              >
+                Copy conversation
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={downloadConversationAsJson}>
+                Download conversation as JSON
+              </DropdownMenuItem>
 
-                <DropdownMenuItem
-                  onClick={() => {
-                    if (rowData.content) {
-                      toggleFlag(rowData.content.fileName);
-                      toggleFileFlag(rowData.content.fileName);
-                    }
-                  }}
-                >
-                  {rowData.content?.flagged
-                    ? "Unflag conversation"
-                    : "Flag conversation"}
-                </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  startTransition(async () => {
+                    await toggleFlag(rowData.id);
+                  });
+                }}
+              >
+                {rowData.flagged ? "Unflag conversation" : "Flag conversation"}
+              </DropdownMenuItem>
 
-                <DropdownMenuSeparator />
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start p-[8px] font-normal"
-                    >
-                      View conversation
-                    </Button>
-                  </DialogTrigger>
+              <DropdownMenuSeparator />
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start p-[8px] font-normal"
+                  >
+                    View conversation
+                  </Button>
+                </DialogTrigger>
 
-                  <DialogContent className="w-11/12 md:max-w-[450px]">
-                    <DialogHeader>
-                      <DialogTitle>Conversation</DialogTitle>
-                      <DialogDescription>
-                        View conversation between user and potential scammer.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <DialogOverlay className="h-[250px] overflow-auto">
-                      {rowData.content?.conversation.map((entry, index) => (
-                        <div key={index}>
-                          <div>
-                            <span>{entry.from}</span>
-                            <span>
-                              {entry.timestamp
-                                ? new Date(entry.timestamp).toLocaleString()
-                                : ""}
-                            </span>
-                          </div>
-                          <div>{entry.message}</div>
-                          <br />
+                <DialogContent className="w-11/12 md:max-w-[450px]">
+                  <DialogHeader>
+                    <DialogTitle>Conversation</DialogTitle>
+                    <DialogDescription>
+                      View conversation between user and potential scammer.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogOverlay className="h-[250px] overflow-auto">
+                    {rowData.conversation.map((entry, index) => (
+                      <div key={index}>
+                        <div>
+                          <span>{entry.from}</span>
+                          <span>
+                            {entry.timestamp
+                              ? new Date(entry.timestamp).toLocaleString()
+                              : ""}
+                          </span>
                         </div>
-                      ))}
-                    </DialogOverlay>
-                  </DialogContent>
-                </Dialog>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          );
-        },
+                        <div>{entry.message}</div>
+                        <br />
+                      </div>
+                    ))}
+                  </DialogOverlay>
+                </DialogContent>
+              </Dialog>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
       },
-    ],
-    [toggleFileFlag],
-  );
-  const savedPageIndex = parseInt(localStorage.getItem("pageIndex") || "0", 10);
-
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
-  const [pageIndex, setPageIndex] = React.useState(savedPageIndex);
-  const [pageSize, setPageSize] = React.useState(5);
-
-  React.useEffect(() => {
-    localStorage.setItem("pageIndex", pageIndex.toString());
-  }, [pageIndex]);
+    },
+  ];
 
   const table = useReactTable({
     data: files,

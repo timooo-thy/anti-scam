@@ -1,23 +1,7 @@
-export type JsonFile = {
-  name: string;
-  url: string;
-};
+import { Prisma } from "@prisma/client";
 
-type ConversationEntry = {
-  from: string;
-  message: string;
-  timestamp?: string;
-};
-
-export type JsonContent = {
-  fileName: string;
-  email: string;
-  datetime: string;
-  ai_score: number;
-  flagged: boolean;
-  conversation: ConversationEntry[];
-};
-
-export type FullJsonFile = JsonFile & {
-  content?: JsonContent;
-};
+export type FullScamSubmission = Prisma.ScamSubmissionGetPayload<{
+  include: {
+    conversation: true;
+  };
+}>;
