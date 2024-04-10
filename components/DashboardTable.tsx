@@ -251,7 +251,7 @@ export const DashboardTable: FC<DashboardTableProps> = ({ files }) => {
                   <DialogOverlay className="h-[250px] overflow-auto">
                     {rowData.conversation.map((entry, index) => (
                       <div key={index}>
-                        <div>
+                        <div className="my-2 flex justify-between">
                           <span>{entry.from}</span>
                           <span>
                             {entry.timestamp

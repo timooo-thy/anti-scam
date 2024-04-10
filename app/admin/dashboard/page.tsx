@@ -1,8 +1,7 @@
-import { FC, Suspense } from "react";
+import { Suspense } from "react";
 import { auth } from "@clerk/nextjs";
-import Dashboard from "./Dashboard";
+import Dashboard from "../../../components/Dashboard";
 import { Metadata } from "next";
-import prisma from "@/lib/db";
 import Loading from "@/app/loading";
 
 export const metadata: Metadata = {
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
   description: "Manage all submissions within a dashboard.",
 };
 
-const DashboardPage: FC = async () => {
+export default async function DashboardPage() {
   const { sessionClaims } = auth();
 
   const email = sessionClaims?.email as string;
@@ -27,6 +26,4 @@ const DashboardPage: FC = async () => {
       </Suspense>
     </main>
   );
-};
-
-export default DashboardPage;
+}

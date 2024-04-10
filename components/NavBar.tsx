@@ -19,7 +19,7 @@ import { Button } from "./ui/button";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isLoaded, userId } = useAuth();
+  const { userId } = useAuth();
 
   type MenuItem = {
     name: string;

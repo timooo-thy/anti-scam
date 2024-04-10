@@ -1,10 +1,9 @@
-import { FC } from "react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-const Home: FC = () => {
+export default function Home() {
   return (
     <main className="flex min-h-[calc(100dvh-168px)] flex-col items-center">
       <div className="my-[75px] flex w-9/12 flex-col gap-10 md:my-[120px] md:w-8/12 xl:w-6/12 ">
@@ -14,7 +13,10 @@ const Home: FC = () => {
         <h2 className="text-xl font-semibold md:text-center  md:text-2xl">
           Protect Yourself from Scams with the Power of AI
         </h2>
-        <Button className="mb-10 h-9 self-center text-base text-white md:w-1/4 md:text-lg">
+        <Button
+          asChild
+          className="mb-10 h-9 self-center text-base text-white md:w-1/4 md:text-lg"
+        >
           <Link href="/upload">Try it out!</Link>
         </Button>
         <h2 className="mb-10 text-center text-2xl font-semibold md:text-4xl">
@@ -119,7 +121,10 @@ const Home: FC = () => {
             </p>
           </div>
         </div>
-        <Button className="my-2 h-10 self-center text-base text-white md:my-10 md:w-1/4 md:text-lg">
+        <Button
+          asChild
+          className="my-2 h-10 self-center text-base text-white md:my-10 md:w-1/4 md:text-lg"
+        >
           <Link href="/upload">Upload now!</Link>
         </Button>
         <h2 className="my-2 mt-10 text-center text-2xl font-semibold md:my-10 md:text-4xl">
@@ -173,6 +178,4 @@ const Home: FC = () => {
       </div>
     </main>
   );
-};
-
-export default Home;
+}

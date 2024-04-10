@@ -22,5 +22,5 @@ export async function toggleFlag(id: string) {
     },
   });
 
-  revalidatePath("/admin/dashboard", "page");
+  revalidatePath("/admin/dashboard");
 }

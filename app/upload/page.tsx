@@ -1,13 +1,12 @@
 import { Metadata } from "next";
-import Upload from "./Upload";
-import { FC } from "react";
+import Upload from "../../components/Upload";
 
 export const metadata: Metadata = {
   title: "Upload | SG Anti-Scam AI",
   description: "Upload your conversations with just a click of a button.",
 };
 
-const UploadPage: FC = () => {
+export default function UploadPage() {
   return (
     <div className="flex min-h-[calc(100dvh-168px)] flex-col items-center bg-background">
       <Upload />
@@ -23,6 +22,4 @@ const UploadPage: FC = () => {
       </div>
     </div>
   );
-};
-
-export default UploadPage;
+}
