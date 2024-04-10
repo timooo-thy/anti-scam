@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { auth } from "@clerk/nextjs";
 import Dashboard from "../../../components/Dashboard";
-import Loading from "@/app/loading";
+import Loading from "@/src/app/loading";
 
 export async function generateMetadata() {
   const { sessionClaims } = auth();

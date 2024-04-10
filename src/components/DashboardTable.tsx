@@ -16,8 +16,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/src/components/ui/button";
+import { Checkbox } from "@/src/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -26,7 +26,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/src/components/ui/dropdown-menu";
 
 import {
   Dialog,
@@ -35,8 +35,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+} from "@/src/components/ui/dialog";
+import { Input } from "@/src/components/ui/input";
 import {
   Table,
   TableBody,
@@ -44,10 +44,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/src/components/ui/table";
 import { DialogOverlay } from "@radix-ui/react-dialog";
-import { toggleFlag } from "@/actions/actions";
-import { FullScamSubmission } from "@/types/FullJsonFile";
+import { toggleFlag } from "@/src/actions/actions";
+import { FullScamSubmission } from "@/src/types/FullJsonFile";
 import { FC, useEffect, useState, useTransition } from "react";
 import { Spinner } from "@nextui-org/react";
 

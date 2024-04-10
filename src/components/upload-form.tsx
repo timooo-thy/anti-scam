@@ -1,11 +1,11 @@
 "use client";
 import { useState, ChangeEvent, useRef } from "react";
 import { toast } from "sonner";
-import { SelectedImageType } from "@/types/SelectedImageType";
-import { Input } from "@/components/ui/input";
+import { SelectedImageType } from "@/src/types/SelectedImageType";
+import { Input } from "@/src/components/ui/input";
 import { UploadCarousel } from "./UploadCarousel";
 import { Label } from "./ui/label";
-import { uploadImages } from "@/actions/actions";
+import { uploadImages } from "@/src/actions/actions";
 import UploadImageButton from "./upload-image-button";
 
 export default function UploadForm() {

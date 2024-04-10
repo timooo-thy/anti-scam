@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import NavBar from "@/components/NavBar";
-import { Toaster } from "@/components/ui/sonner";
-import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/src/components/theme-provider";
+import NavBar from "@/src/components/NavBar";
+import { Toaster } from "@/src/components/ui/sonner";
+import Footer from "@/src/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import NextTopLoader from "nextjs-toploader";

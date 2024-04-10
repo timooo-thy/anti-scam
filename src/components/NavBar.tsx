@@ -10,8 +10,8 @@ import {
   NavbarMenuToggle,
   NavbarMenuItem,
 } from "@nextui-org/react";
-import { ModeToggle } from "@/components/ModeToggle";
-import { Separator } from "@/components/ui/separator";
+import { ModeToggle } from "@/src/components/ModeToggle";
+import { Separator } from "@/src/components/ui/separator";
 import { Link1Icon } from "@radix-ui/react-icons";
 import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
 import { Button } from "./ui/button";
