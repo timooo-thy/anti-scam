@@ -10,7 +10,7 @@ export default function NotFound() {
           You either do not have access permissions to the page you were on or
           the URL is invalid.
         </p>
-        <Button className="w-min">
+        <Button asChild className="w-min">
           <Link href="/">Return Home</Link>
         </Button>
       </div>

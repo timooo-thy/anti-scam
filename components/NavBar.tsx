@@ -9,7 +9,6 @@ import {
   NavbarMenu,
   NavbarMenuToggle,
   NavbarMenuItem,
-  menu,
 } from "@nextui-org/react";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Separator } from "@/components/ui/separator";

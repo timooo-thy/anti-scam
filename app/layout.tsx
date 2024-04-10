@@ -6,9 +6,10 @@ import NavBar from "@/components/NavBar";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
-import { ClerkProvider } from "@clerk/nextjs";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import NextTopLoader from "nextjs-toploader";
+import { Provider } from "@/provider";
+import { Suspense } from "react";
 
 const roboto_condensed = Roboto_Condensed({ subsets: ["latin"] });
 
@@ -20,29 +21,31 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body className={`${roboto_condensed.className} bg-background`}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <NextTopLoader />
-            <NavBar />
-            {children}
-            <Toaster richColors />
-            <Analytics />
-            <SpeedInsights />
-            <Footer />
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${roboto_condensed.className} bg-background`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextTopLoader />
+          <Suspense>
+            <Provider>
+              <NavBar />
+              {children}
+            </Provider>
+          </Suspense>
+          <Toaster richColors />
+          <Analytics />
+          <SpeedInsights />
+          <Footer />
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
