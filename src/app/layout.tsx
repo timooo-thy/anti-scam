@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import NavBar from "@/components/nav-bar";
+import NavBar from "@/components/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/footer";
 import { Analytics } from "@vercel/analytics/react";
