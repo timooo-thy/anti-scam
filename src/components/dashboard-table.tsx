@@ -47,7 +47,7 @@ import {
 } from "@/src/components/ui/table";
 import { DialogOverlay } from "@radix-ui/react-dialog";
 import { toggleFlag } from "@/src/actions/actions";
-import { FullScamSubmission } from "@/src/types/FullJsonFile";
+import { FullScamSubmission } from "@/src/types/types";
 import { FC, useEffect, useState, useTransition } from "react";
 import { Spinner } from "@nextui-org/react";
 

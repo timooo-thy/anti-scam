@@ -7,11 +7,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/src/components/ui/carousel";
-import { SelectedImageType } from "@/src/types/SelectedImageType";
 import Image from "next/image";
 
 interface UploadCarouselProps {
-  images: SelectedImageType;
+  images: File[];
 }
 
 export function UploadCarousel({ images }: UploadCarouselProps) {

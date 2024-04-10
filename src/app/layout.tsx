@@ -8,7 +8,7 @@ import Footer from "@/src/components/footer";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import NextTopLoader from "nextjs-toploader";
-import { Provider } from "@/provider";
+import { Provider } from "@/src/provider";
 import { Suspense } from "react";
 
 const roboto_condensed = Roboto_Condensed({ subsets: ["latin"] });

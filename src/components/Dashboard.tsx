@@ -1,7 +1,7 @@
 import { DashboardTable } from "./dashboard-table";
 import { FC } from "react";
 import prisma from "@/src/lib/db";
-import { FullScamSubmission } from "@/src/types/FullJsonFile";
+import { FullScamSubmission } from "@/src/types/types";
 
 interface DashboardProps {
   email: string;
